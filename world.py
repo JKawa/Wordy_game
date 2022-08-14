@@ -17,7 +17,6 @@ def lista_gener_word(word)->List:
     for letter in word:
         lista.append(letter)
     return lista
-word=generate_word(5)
 def word_definition(word)->str:
     try:
         return (f"{word}: Verb: {(dictionary.meaning(word)['Verb'][0])}")
