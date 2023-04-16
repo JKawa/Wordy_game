@@ -4,6 +4,8 @@ from tkinter import messagebox
 from world import generate_word, lista_gener_word, word_definition
 from typing import List
 
+#to do deactivate radio button after use
+
 text=""" Your goal is to guess a word in 5 tries.
 Please write word and press button.
 The tile colors will guide you. 
