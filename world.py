@@ -12,7 +12,7 @@ def generate_word(length:str)->str:
 
     return word
 def lista_gener_word(word:str)->List:
-    word=word.lower()
+    word=word.upper()
     lista=[]
     for letter in word:
         lista.append(letter)
