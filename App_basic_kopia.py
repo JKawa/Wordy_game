@@ -15,6 +15,7 @@ no change - letter not in this word
 """
 global expression
 expression = ''
+#input_text = StringVar()
 
 
 def clear_frame(frame):
@@ -33,9 +34,11 @@ def create_playground(hieght:int,width:int,frame,font:str):
 
 def press(num: str, entry) -> str:
     global expression
+    print("2",expression)
     input_text = StringVar()
     print("num",num)
     expression = expression + num
+    print("exp",expression)
     input_text.set(expression)
     entry.config(text=expression)
 
@@ -46,12 +49,15 @@ def press(num: str, entry) -> str:
 def create_buttons(hieght:int,width:int,frame,entry):
     button = [0 for z in range(hieght * width)]
     alfabet=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-
+    print(hieght,width)
     for i in range(hieght):
         for j in range(width):
-            print(alfabet[13 * i + j])
-            button[13 * i + j] = tk.Button(frame,text=alfabet[13 * i + j], height=2, width=4,command=lambda: press(alfabet[13 * i + j],entry))
-            button[13 * i + j].grid(column=j, row=i)
+            print(alfabet[width * i + j])
+            litera=str(alfabet[width * i + j])
+            print(litera)
+            button[width * i + j] = tk.Button(frame,text=litera, height=2, width=4,command=lambda: press(litera,entry))
+            button[width * i + j].grid(column=j, row=i)
+            print(button[width*i+j])
     return button
 
 
@@ -83,7 +89,8 @@ class App(tk.Tk):
         self.text.grid(column=0, row=1)
         self.title_font = tk.font.Font(family="Comic Sans MS", size=15, weight="bold")
         self.letter_font = tk.font.Font(family="Arial", size=12, weight="bold")
-        final_word = generate_word(5)
+        #final_word = generate_word(5)
+        final_word="world"
         self.Label01=create_playground(5,5,self.frame1,self.letter_font)
 
         # global expression
