@@ -55,7 +55,7 @@ def create_buttons(hieght:int,width:int,frame,entry):
             print(alfabet[width * i + j])
             litera=str(alfabet[width * i + j])
             print(litera)
-            button[width * i + j] = tk.Button(frame,text=litera, height=2, width=4,command=lambda: press(litera,entry))
+            button[width * i + j] = tk.Button(frame,text=litera, height=2, width=4,command=lambda litera=litera: press(litera,entry))
             button[width * i + j].grid(column=j, row=i)
             print(button[width*i+j])
     return button
