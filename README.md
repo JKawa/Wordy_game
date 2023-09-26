@@ -1,4 +1,7 @@
+This is a recreation of wordly game.
+
 Introduction:
+
 The wordly Game is a simple game. 
 Your task is to guess a random English world by passing letters.
   
