@@ -176,6 +176,7 @@ class App(tk.Tk):
             "Y",
             "Z",
         ]
+        self.word_list=[]
         final_word = generate_word(5)
         # final_word="world"
         self.Label01 = create_playground(5, 5, self.frame1, self.letter_font)
@@ -220,7 +221,9 @@ class App(tk.Tk):
 
                 else:
                     lista = [letter for letter in guess]
-                    if len(guess) == 5:
+                    if len(guess) == 5 and guess not in self.word_list:
+                        self.word_list.append(guess)
+                        print(self.word_list)
                         for element in lista:
                             if element in final_list and lista.index(
                                 element
@@ -260,6 +263,11 @@ class App(tk.Tk):
                             self.button_enter.config(state="disabled")
                         else:
                             pass
+                    elif guess  in self.word_list:
+                        tk.messagebox.showinfo(
+                            title=None, message="You have already used this word"
+                        )
+                        self.tries -= 1
                     else:
                         tk.messagebox.showinfo(
                             title=None, message="Your word must contain 5 letters"

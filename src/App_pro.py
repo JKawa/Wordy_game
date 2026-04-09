@@ -214,6 +214,7 @@ class App(tk.Tk):
         def click2():
             clear_frame(self.frame1)
             n = var.get()
+            print("n=  "+str(n))
             final_word = generate_word(n)
             self.Label01 = create_playground(n, n, self.frame1, self.letter_font)
             #input_text = StringVar()
