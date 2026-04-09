@@ -205,7 +205,7 @@ class App(tk.Tk):
             "Z",
         ]
         self.buttons = create_buttons(2, 13, self.frame3, self.label20)
-
+        self.word_list=[]
 
         Label01 = [0 for z in range(50)]
         frames = []
@@ -258,7 +258,8 @@ class App(tk.Tk):
 
                 else:
                     lista = [letter for letter in guess]
-                    if len(guess) == n:
+                    if len(guess) == n and guess not in self.word_list:
+                        self.word_list.append(guess)
                         for element in lista:
                             if element in final_list and lista.index(
                                 element
@@ -298,6 +299,11 @@ class App(tk.Tk):
                             self.button_enter.config(state="disabled")
                         else:
                             pass
+                    elif guess  in self.word_list:
+                        tk.messagebox.showinfo(
+                            title=None, message="You have already used this word"
+                        )
+                        self.tries -= 1
                     else:
                         tk.messagebox.showinfo(
                             title=None, message=f"Your word must contain {n} letters"
