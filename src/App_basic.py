@@ -235,7 +235,7 @@ class App(tk.Tk):
                             pass
                     elif guess  in self.word_list:
                         tk.messagebox.showinfo(
-          pink                  title=None, message="You have already used this word"
+                 title=None, message="You have already used this word"
                         )
                         self.tries -= 1
                     else:

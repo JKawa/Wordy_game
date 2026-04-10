@@ -6,9 +6,9 @@ from world import generate_word, lista_gener_word, word_definition
 from typing import List
 import enchant
 
-#to do deactivate radio button after use
+# to do deactivate radio button after use
 
-text=""" Your goal is to guess a word in 5 tries.
+text = """ Your goal is to guess a word in 5 tries.
 Please write word and press button.
 The tile colors will guide you. 
 green - correct letter at correct spot
@@ -78,44 +78,54 @@ def create_buttons(hieght: int, width: int, frame, label, alfabet):
             button[width * i + j].grid(column=j, row=i)
     return button
 
-def clear_buttons():
-    pass
 
 
-
-class NewWindow():
-
+class NewWindow:
     def __init__(self, word, message):
         self.window = tk.Tk()
-        self.won_loose_font=tk.font.Font(family="Comic Sans MS", size=15, weight="bold")
-        self.message_font=tk.font.Font(family="Arial", size=12, weight="bold")
-        self.window.config(bg='#90C6E5')
+        self.won_loose_font = tk.font.Font(
+            family="Comic Sans MS", size=15, weight="bold"
+        )
+        self.message_font = tk.font.Font(family="Arial", size=12, weight="bold")
+        self.window.config(bg="#90C6E5")
         self.window.title(message)
-        self.mes = tk.Label(self.window, text=message,font=self.won_loose_font, fg='#606060',bg='#90C6E5')
-        self.mes.grid(column=0,row=0)
-        self.word = tk.Label(self.window, text=word_definition(word), fg='#606060',bg='#90C6E5',font=self.message_font)
-        self.word .grid(column=0,row=1)
+        self.mes = tk.Label(
+            self.window,
+            text=message,
+            font=self.won_loose_font,
+            fg="#606060",
+            bg="#90C6E5",
+        )
+        self.mes.grid(column=0, row=0)
+        self.word = tk.Label(
+            self.window,
+            text=word_definition(word),
+            fg="#606060",
+            bg="#90C6E5",
+            font=self.message_font,
+        )
+        self.word.grid(column=0, row=1)
         self.window.mainloop()
 
 
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title('Wordly')
-        self.resizable(height = '240', width = '445')
-        self.config(bg='#90C6E5')
+        self.title("Wordly")
+        self.resizable(height="240", width="445")
+        self.config(bg="#90C6E5")
         self.tries = 0
         self.title_font = tk.font.Font(family="Comic Sans MS", size=15, weight="bold")
         self.letter_font = tk.font.Font(family="Arial", size=12, weight="bold")
-        self.message_font=tk.font.Font(family="Arial", size=10, weight="bold")
-        self.frame0 = tk.Frame(self, bg='#90C6E5', height=50, width=28)
+        self.message_font = tk.font.Font(family="Arial", size=10, weight="bold")
+        self.frame0 = tk.Frame(self, bg="#90C6E5", height=50, width=28)
         self.frame0.grid_propagate()
-        self.frame1 = tk.Frame(self, bg='#90C6E5', height=50, width=28)
+        self.frame1 = tk.Frame(self, bg="#90C6E5", height=50, width=28)
         self.frame1.grid_propagate()
-        self.frame2 = tk.Frame(self, bg='#90C6E5', height=50, width=28)
+        self.frame2 = tk.Frame(self, bg="#90C6E5", height=50, width=28)
         self.frame2.grid_propagate()
-        self.frame01=tk.Frame(self.frame0, bg='#90C6E5', height=50, width=28)
-        self.frame011 = tk.Frame(self.frame01, bg='#90C6E5', height=50, width=30)
+        self.frame01 = tk.Frame(self.frame0, bg="#90C6E5", height=50, width=28)
+        self.frame011 = tk.Frame(self.frame01, bg="#90C6E5", height=50, width=30)
         self.frame2.grid_propagate()
         self.frame3 = tk.Frame(self, bg="red", height=50, width=28)
         self.frame3.grid_propagate()
@@ -130,7 +140,15 @@ class App(tk.Tk):
             fg="white",
             font=self.letter_font,
         )
-        self.text=tk.Label(self.frame0,text=text,anchor='center', bg='#90C6E5',fg='#606060',  height=8, width=34)
+        self.text = tk.Label(
+            self.frame0,
+            text=text,
+            anchor="center",
+            bg="#90C6E5",
+            fg="#606060",
+            height=8,
+            width=34,
+        )
         self.frame0.grid(column=0, row=0)
         self.frame1.grid(column=0, row=1)
         self.frame2.grid(column=0, row=2)
@@ -140,13 +158,20 @@ class App(tk.Tk):
         self.frame011.grid(column=0, row=1)
         self.label20.grid(column=0, row=0)
         self.text.grid(column=0, row=1)
-        self.choose_text=tk.Label(self.frame01, text="Choose number of letters", bg='#90C6E5', fg="#0A659A",width=19, font=self.message_font)
-        var=tk.IntVar()
-        self.radio5=tk.Radiobutton(self.frame011, text="5",variable=var, value=5)
+        self.choose_text = tk.Label(
+            self.frame01,
+            text="Choose number of letters",
+            bg="#90C6E5",
+            fg="#0A659A",
+            width=19,
+            font=self.message_font,
+        )
+        var = tk.IntVar()
+        self.radio5 = tk.Radiobutton(self.frame011, text="5", variable=var, value=5)
         self.radio5.grid(column=0, row=0)
-        self.radio6=tk.Radiobutton(self.frame011, text="6",variable=var, value=6)
+        self.radio6 = tk.Radiobutton(self.frame011, text="6", variable=var, value=6)
         self.radio6.grid(column=1, row=0)
-        self.radio7=tk.Radiobutton(self.frame011, text="7",variable=var, value=7)
+        self.radio7 = tk.Radiobutton(self.frame011, text="7", variable=var, value=7)
         self.radio7.grid(column=2, row=0)
         self.choose_text.grid(column=0, row=0)
         self.word = ""
@@ -179,34 +204,49 @@ class App(tk.Tk):
             "Y",
             "Z",
         ]
-        self.buttons = create_buttons(2, 13, self.frame3, self.label20, alfabet=self.alfabet)
-        self.word_list=[]
+        self.buttons = create_buttons(
+            2, 13, self.frame3, self.label20, alfabet=self.alfabet
+        )
+        self.word_list = []
 
-        Label01 = [0 for z in range(50)]
-        frames = []
         input_text = StringVar()
 
         def click2():
+            
             clear_frame(self.frame1)
             n = var.get()
-            print("n=  "+str(n))
+            print("n=  " + str(n))
+            clear_buttons_all()
             final_word = generate_word(n)
             self.Label01 = create_playground(n, n, self.frame1, self.letter_font)
-            #input_text = StringVar()
-            self.button_enter.config(state='active', bg='#82C4EB',activebackground='#82C4EB')
+            # input_text = StringVar()
+            self.button_enter.config(
+                state="active", bg="#82C4EB", activebackground="#82C4EB"
+            )
             self.word = final_word
             self.word_length = n
-            self.tries=0
-            
+            self.tries = 0
+
         def clear(entry=self.label20):
             global expression
             expression = ""
             input_text.set("")
             entry.config(text="")
 
+        def change_colors(element, background: str, text_color: str):
+            get_letter_button(element, self.alfabet, self.buttons).config(
+                background=background, fg=text_color
+            )
+        def clear_button(button):
+            change_colors(button, background="#90C6E5", text_color= "black" )
+            
+        def clear_buttons_all():
+            for el in self.alfabet :
+                clear_button(el)
+
         def click():
-            n=self.word_length
-            final_word=self.word
+            n = self.word_length
+            final_word = self.word
             final_list = lista_gener_word(final_word)
             expression = self.label20.cget("text")
             d = enchant.Dict("en_US")
@@ -223,12 +263,14 @@ class App(tk.Tk):
                 self.tries += 1
                 if self.tries > 5:
                     if guess == final_word:
-                        message="You won."
-                        NewWindow(final_word,message)
+                        message = "You won."
+                        NewWindow(final_word, message)
                         self.button_enter.config(state="disabled")
                     else:
-                        message=f"You used all tries. You loose. The word was: {final_word}"
-                        NewWindow(final_word,message)
+                        message = (
+                            f"You used all tries. You loose. The word was: {final_word}"
+                        )
+                        NewWindow(final_word, message)
                         self.button_enter.config(state="disabled")
 
                 else:
@@ -239,19 +281,19 @@ class App(tk.Tk):
                             if element in final_list and lista.index(
                                 element
                             ) != final_list.index(element):
-                                get_letter_button(
-                                    element, self.alfabet, self.buttons
-                                ).config(background="#DFE590", fg="black")
+                                change_colors(
+                                    element, background="#DFE590", text_color="black"
+                                )
                             elif element in final_list and lista.index(
                                 element
                             ) == final_list.index(element):
-                                get_letter_button(
-                                    element, self.alfabet, self.buttons
-                                ).config(background="#98E590", fg="white")
+                                change_colors(
+                                    element, background="#98E590", text_color="white"
+                                )
                             else:
-                                get_letter_button(
-                                    element, self.alfabet, self.buttons
-                                ).config(background="grey", fg="white")
+                                change_colors(
+                                    element, background="grey", text_color="white"
+                                )
                         for index in range(len(lista)):
                             if final_list[index] == lista[index]:
                                 self.Label01[(index + (self.tries - 1) * n)].config(
@@ -274,7 +316,7 @@ class App(tk.Tk):
                             self.button_enter.config(state="disabled")
                         else:
                             pass
-                    elif guess  in self.word_list:
+                    elif guess in self.word_list:
                         tk.messagebox.showinfo(
                             title=None, message="You have already used this word"
                         )
@@ -287,16 +329,32 @@ class App(tk.Tk):
                 self.label20.config(text="")
                 clear()
 
-
-        self.button0 = tk.Button(self.frame01, text="OK", bg='#82C4EB', height=1, width=13,command=click2)
+        self.button0 = tk.Button(
+            self.frame01, text="OK", bg="#82C4EB", height=1, width=13, command=click2
+        )
         self.button0.grid(column=0, row=2)
-        self.button_enter = tk.Button(self.frame4, text="Enter", bg='#82C4EB',state='disabled', height=2, width=31, command=click)
+        self.button_enter = tk.Button(
+            self.frame4,
+            text="Enter",
+            bg="#82C4EB",
+            state="disabled",
+            height=2,
+            width=31,
+            command=click,
+        )
         self.button_enter.grid(column=0, row=2)
         self.button_clear = tk.Button(
             self.frame4, text="Clear", bg="#82C4EB", height=1, width=31, command=clear
         )
         self.button_clear.grid(column=0, row=1)
-        self.title = tk.Label(self.frame0, text="Welcome to Wordly", bg='#90C6E5', fg="#0A659A",font=self.title_font,width=19)
+        self.title = tk.Label(
+            self.frame0,
+            text="Welcome to Wordly",
+            bg="#90C6E5",
+            fg="#0A659A",
+            font=self.title_font,
+            width=19,
+        )
         self.title.grid(column=0, row=0)
 
 
