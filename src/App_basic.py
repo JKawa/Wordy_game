@@ -1,9 +1,8 @@
 import tkinter as tk
 import tkinter.font
-from tkinter import messagebox
+import tkinter.messagebox
 from tkinter import *
 from world import generate_word, lista_gener_word
-from typing import List
 import enchant
 
 text = """ Your goal is to guess a word in 5 tries.
@@ -48,17 +47,11 @@ def get_letter_button(letter, list_letter, buttons):
     return button
 
 
-def press(num: str, entry) -> str:
-    global expression
-    input_text = StringVar()
-    expression = expression + num
-    input_text.set(expression)
-    entry.config(text=expression)
-
-    return expression
+def press(num: str, entry):
+    entry.insert(tk.END, num)
 
 
-def create_buttons(hieght: int, width: int, frame, label, alfabet):
+def create_buttons(hieght: int, width: int, frame, entry, alfabet):
     button = [0 for z in range(hieght * width)]
     for i in range(hieght):
         for j in range(width):
@@ -69,7 +62,7 @@ def create_buttons(hieght: int, width: int, frame, label, alfabet):
                 bg="#90C6E5",
                 height=1,
                 width=2,
-                command=lambda letter=letter: press(letter, label),
+                command=lambda letter=letter: press(letter, entry),
             )
             button[width * i + j].grid(column=j, row=i)
     return button
@@ -95,15 +88,21 @@ class App(tk.Tk):
         self.frame4 = tk.Frame(self, bg="red", height=50, width=28)
         self.frame4.grid_propagate()
 
-        self.label20 = tk.Label(
+        self.input_text = tk.Entry(
             self.frame2,
             width=38,
-            anchor="center",
-            text="",
-            bg="#90C6E5",
-            fg="white",
+            justify="center",
+            bg="#B8CAD4",
+            fg="black",
             font=self.letter_font,
         )
+
+        def to_uppercase(event):
+            text = self.input_text.get().upper()
+            self.input_text.delete(0, tk.END)
+            self.input_text.insert(0, text)
+
+        self.input_text.bind("<KeyRelease>", to_uppercase)
         self.text = tk.Label(
             self.frame0,
             text=text,
@@ -118,7 +117,7 @@ class App(tk.Tk):
         self.frame2.grid(column=0, row=2)
         self.frame3.grid(column=0, row=3)
         self.frame4.grid(column=0, row=4)
-        self.label20.grid(column=0, row=0)
+        self.input_text.grid(column=0, row=0)
         self.text.grid(column=0, row=1)
         self.alfabet = [
             "A",
@@ -148,38 +147,35 @@ class App(tk.Tk):
             "Y",
             "Z",
         ]
-        self.word_list=[]
+        self.word_list = []
         final_word = generate_word(5)
         # final_word="world"
         self.Label01 = create_playground(5, 5, self.frame1, self.letter_font)
 
-        # global expression
-        # expression=''
-        input_text = StringVar()
-
-        def clear(entry=self.label20):
+        def clear():
             global expression
             expression = ""
-            input_text.set("")
-            entry.config(text="")
+            self.input_text.delete(0, tk.END)
 
-        buttons = create_buttons(2, 13, self.frame3, self.label20, alfabet=self.alfabet)
-        def change_colors(element, background:str,text_color:str ):
-            get_letter_button(
-                                    element, self.alfabet, buttons
-                                ).config(background=background, fg=text_color)
-        
+        buttons = create_buttons(
+            2, 13, self.frame3, self.input_text, alfabet=self.alfabet
+        )
+
+        def change_colors(element, background: str, text_color: str):
+            get_letter_button(element, self.alfabet, buttons).config(
+                background=background, fg=text_color
+            )
+
         def click():
             final_list = lista_gener_word(final_word)
             d = enchant.Dict("en_US")
-            expression = self.label20.cget("text")
-            guess = expression
+            guess = self.input_text.get()
             while guess == "":
                 tk.messagebox.showinfo(title=None, message="Choose a word")
                 break
             while d.check(guess) is False:
                 tk.messagebox.showinfo(title=None, message="Choose a real word")
-                self.label20.config(text="")
+                self.input_text.config(text="")
                 clear()
                 break
             else:
@@ -204,13 +200,19 @@ class App(tk.Tk):
                             if element in final_list and lista.index(
                                 element
                             ) != final_list.index(element):
-                                change_colors(element, background="yellow", text_color="black")
+                                change_colors(
+                                    element, background="#DFE590", text_color="black"
+                                )
                             elif element in final_list and lista.index(
                                 element
                             ) == final_list.index(element):
-                                change_colors(element, background="#98E590", text_color="black")
+                                change_colors(
+                                    element, background="#98E590", text_color="black"
+                                )
                             else:
-                                change_colors(element, background="grey", text_color="white")
+                                change_colors(
+                                    element, background="grey", text_color="white"
+                                )
                         for index in range(len(lista)):
                             if final_list[index] == lista[index]:
                                 self.Label01[(index + (self.tries - 1) * 5)].config(
@@ -233,9 +235,9 @@ class App(tk.Tk):
                             self.button_enter.config(state="disabled")
                         else:
                             pass
-                    elif guess  in self.word_list:
+                    elif guess in self.word_list:
                         tk.messagebox.showinfo(
-                 title=None, message="You have already used this word"
+                            title=None, message="You have already used this word"
                         )
                         self.tries -= 1
                     else:
@@ -243,7 +245,7 @@ class App(tk.Tk):
                             title=None, message="Your word must contain 5 letters"
                         )
                         self.tries -= 1
-                self.label20.config(text="")
+                self.input_text.config(text="")
                 clear()
 
         self.button_enter = tk.Button(
