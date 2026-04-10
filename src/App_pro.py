@@ -61,36 +61,9 @@ def press(num: str, entry) -> str:
     return expression
 
 
-def create_buttons(hieght: int, width: int, frame, label):
+def create_buttons(hieght: int, width: int, frame, label, alfabet):
     button = [0 for z in range(hieght * width)]
-    alfabet = [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L",
-        "M",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W",
-        "X",
-        "Y",
-        "Z",
-    ]
+
     for i in range(hieght):
         for j in range(width):
             letter = str(alfabet[width * i + j])
@@ -105,6 +78,8 @@ def create_buttons(hieght: int, width: int, frame, label):
             button[width * i + j].grid(column=j, row=i)
     return button
 
+def clear_buttons():
+    pass
 
 
 
@@ -204,7 +179,7 @@ class App(tk.Tk):
             "Y",
             "Z",
         ]
-        self.buttons = create_buttons(2, 13, self.frame3, self.label20)
+        self.buttons = create_buttons(2, 13, self.frame3, self.label20, alfabet=self.alfabet)
         self.word_list=[]
 
         Label01 = [0 for z in range(50)]

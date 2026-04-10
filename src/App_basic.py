@@ -58,36 +58,8 @@ def press(num: str, entry) -> str:
     return expression
 
 
-def create_buttons(hieght: int, width: int, frame, label):
+def create_buttons(hieght: int, width: int, frame, label, alfabet):
     button = [0 for z in range(hieght * width)]
-    alfabet = [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L",
-        "M",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W",
-        "X",
-        "Y",
-        "Z",
-    ]
     for i in range(hieght):
         for j in range(width):
             letter = str(alfabet[width * i + j])
@@ -191,8 +163,12 @@ class App(tk.Tk):
             input_text.set("")
             entry.config(text="")
 
-        buttons = create_buttons(2, 13, self.frame3, self.label20)
-
+        buttons = create_buttons(2, 13, self.frame3, self.label20, alfabet=self.alfabet)
+        def change_colors(element, background:str,text_color:str ):
+            get_letter_button(
+                                    element, self.alfabet, buttons
+                                ).config(background=background, fg=text_color)
+        
         def click():
             final_list = lista_gener_word(final_word)
             d = enchant.Dict("en_US")
@@ -228,19 +204,13 @@ class App(tk.Tk):
                             if element in final_list and lista.index(
                                 element
                             ) != final_list.index(element):
-                                get_letter_button(
-                                    element, self.alfabet, buttons
-                                ).config(background="#DFE590", fg="black")
+                                change_colors(element, background="yellow", text_color="black")
                             elif element in final_list and lista.index(
                                 element
                             ) == final_list.index(element):
-                                get_letter_button(
-                                    element, self.alfabet, buttons
-                                ).config(background="#98E590", fg="white")
+                                change_colors(element, background="#98E590", text_color="black")
                             else:
-                                get_letter_button(
-                                    element, self.alfabet, buttons
-                                ).config(background="grey", fg="white")
+                                change_colors(element, background="grey", text_color="white")
                         for index in range(len(lista)):
                             if final_list[index] == lista[index]:
                                 self.Label01[(index + (self.tries - 1) * 5)].config(
@@ -265,7 +235,7 @@ class App(tk.Tk):
                             pass
                     elif guess  in self.word_list:
                         tk.messagebox.showinfo(
-                            title=None, message="You have already used this word"
+          pink                  title=None, message="You have already used this word"
                         )
                         self.tries -= 1
                     else:
